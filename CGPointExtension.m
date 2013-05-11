@@ -31,15 +31,27 @@ CGPointMagnitude(CGPoint point) {
   return sqrtf(CGPointDotProduct(point, point));
 }
 
+
+CG_INLINE CGFloat
+CGPointLength(CGPoint point) {
+  return CGPointMagnitude(point);
+}
+
+
 CG_INLINE CGPoint
 CGPointNormalize(CGPoint point) {
   CGFloat magnitude = CGPointMagnitude(point);
   CGPoint newPoint = point;
-  if(magnitude > 0)
+  if(magnitude > 0.f)
     newPoint = CGPointDivideScalar(point, magnitude);
   return newPoint;
     
 }
+CG_INLINE CGPoint
+CGPointUnit(CGPoint point) {
+  return CGPointNormalize(point);
+}
+
 
 CG_INLINE CGPoint
 CGPointLimit(CGPoint point, CGFloat value) {
@@ -50,3 +62,13 @@ CGPointLimit(CGPoint point, CGFloat value) {
   return point;
   
 }
+
+CG_INLINE CGFloat
+CGPointDistance(CGPoint pointStart, CGPoint pointEnd) {
+  CGFloat deltaX = fabsf(pointStart.x-pointEnd.x);
+  CGFloat deltaY = fabsf(pointStart.y-pointEnd.y);
+  return CGPointMagnitude(CGPointMake(deltaX, deltaY));
+}
+
+
+
